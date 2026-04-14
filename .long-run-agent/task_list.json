@@ -1,5 +1,1098 @@
 {
   "project_name": "tag-sense",
   "created_at": "2026-04-14T10:15:11.221738",
-  "tasks": []
+  "tasks": [
+    {
+      "id": "task_001",
+      "description": "T00 项目初始化 — go mod init、完整目录结构、.gitignore、Makefile",
+      "template": "task",
+      "priority": "P1",
+      "status": "pending",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_001.md",
+      "created_at": "2026-04-14T18:03:48.373230",
+      "updated_at": "2026-04-14T18:03:48.373236",
+      "dependencies": [],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_002",
+      "description": "T02 Protobuf 定义 + 代码生成 — api/tagsense/v1/tagsense.proto, buf.yaml, buf.gen.yaml",
+      "template": "task",
+      "priority": "P1",
+      "status": "pending",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_002.md",
+      "created_at": "2026-04-14T18:04:00.075199",
+      "updated_at": "2026-04-14T18:04:00.075210",
+      "dependencies": [
+        "task_001"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_003",
+      "description": "T01 配置系统 — internal/config/config.go, koanf 加载 YAML + 环境变量",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_003.md",
+      "created_at": "2026-04-14T18:04:23.621380",
+      "updated_at": "2026-04-14T18:04:23.621386",
+      "dependencies": [
+        "task_001"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_004",
+      "description": "T03 共享内核: 通用类型 + ULID — domain/types.go 枚举 + domain/ulid.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_004.md",
+      "created_at": "2026-04-14T18:04:35.357183",
+      "updated_at": "2026-04-14T18:04:35.357189",
+      "dependencies": [
+        "task_001"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_005",
+      "description": "T04 共享内核: 错误码 — internal/domain/errors.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_005.md",
+      "created_at": "2026-04-14T18:04:43.498222",
+      "updated_at": "2026-04-14T18:04:43.498233",
+      "dependencies": [
+        "task_004"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_006",
+      "description": "T05 共享内核: 事件协议 + 状态机框架 + 接口契约 — domain/events.go + domain/statemachine.go + service/interfaces.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_006.md",
+      "created_at": "2026-04-14T18:04:58.397249",
+      "updated_at": "2026-04-14T18:04:58.397258",
+      "dependencies": [
+        "task_004",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_007",
+      "description": "T10 PostgreSQL 连接 + 迁移框架 + 事务管理 — storage/postgres/connect.go + migrate.go + tx.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_007.md",
+      "created_at": "2026-04-14T18:05:10.292541",
+      "updated_at": "2026-04-14T18:05:10.292548",
+      "dependencies": [
+        "task_003",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_008",
+      "description": "T11 数据库迁移脚本（全部表）— migrations/001~007 共 7 组 up/down SQL",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_008.md",
+      "created_at": "2026-04-14T18:05:20.781224",
+      "updated_at": "2026-04-14T18:05:20.781230",
+      "dependencies": [
+        "task_007"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_009",
+      "description": "T12 Redis 客户端 + 缓存层 — storage/redis/client.go + cache.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_009.md",
+      "created_at": "2026-04-14T18:05:33.972253",
+      "updated_at": "2026-04-14T18:05:33.972259",
+      "dependencies": [
+        "task_003"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_010",
+      "description": "T13 Outbox 系统 — storage/postgres/outbox_writer.go + outbox_poller.go + storage/redis/event_publisher.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_010.md",
+      "created_at": "2026-04-14T18:05:41.182872",
+      "updated_at": "2026-04-14T18:05:41.182878",
+      "dependencies": [
+        "task_007",
+        "task_009",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_011",
+      "description": "T20 TagType L2-Domain — internal/domain/tag_type.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_011.md",
+      "created_at": "2026-04-14T18:05:55.779597",
+      "updated_at": "2026-04-14T18:05:55.779603",
+      "dependencies": [
+        "task_004",
+        "task_005",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_012",
+      "description": "T21 TagType L1-Storage — Ent schema + Repository, 实现 TagTypeRepo 接口",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_012.md",
+      "created_at": "2026-04-14T18:06:06.561532",
+      "updated_at": "2026-04-14T18:06:06.561544",
+      "dependencies": [
+        "task_007",
+        "task_011",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_013",
+      "description": "T22 TagType L4-Service — internal/service/tag_type.go, 5个RPC方法",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_013.md",
+      "created_at": "2026-04-14T18:06:25.609693",
+      "updated_at": "2026-04-14T18:06:25.609700",
+      "dependencies": [
+        "task_012",
+        "task_009",
+        "task_010",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_014",
+      "description": "T30 TagGroup L2-Domain — internal/domain/tag_group.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_014.md",
+      "created_at": "2026-04-14T18:06:37.530874",
+      "updated_at": "2026-04-14T18:06:37.530881",
+      "dependencies": [
+        "task_004",
+        "task_005",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_015",
+      "description": "T31 TagGroup L1-Storage — Ent schema + Repository, 实现 TagGroupRepo 接口",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_015.md",
+      "created_at": "2026-04-14T18:06:48.674301",
+      "updated_at": "2026-04-14T18:06:48.674309",
+      "dependencies": [
+        "task_007",
+        "task_014",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_016",
+      "description": "T32 TagGroup L4-Service — internal/service/tag_group.go, 跨模块编排",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_016.md",
+      "created_at": "2026-04-14T18:06:57.463362",
+      "updated_at": "2026-04-14T18:06:57.463367",
+      "dependencies": [
+        "task_015",
+        "task_012",
+        "task_009",
+        "task_010",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_017",
+      "description": "T40 TagValue L2-Domain — internal/domain/tag_value.go, 含版本控制",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_017.md",
+      "created_at": "2026-04-14T18:07:09.565229",
+      "updated_at": "2026-04-14T18:07:09.565242",
+      "dependencies": [
+        "task_004",
+        "task_005",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_018",
+      "description": "T41 TagValue L1-Storage — Ent schema(tag_value+tag_value_changelog) + Repository",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_018.md",
+      "created_at": "2026-04-14T18:07:20.426934",
+      "updated_at": "2026-04-14T18:07:20.426940",
+      "dependencies": [
+        "task_007",
+        "task_017",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_019",
+      "description": "T42 TagValue L4-Service — internal/service/tag_value.go, 双路径更新",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_019.md",
+      "created_at": "2026-04-14T18:07:33.759553",
+      "updated_at": "2026-04-14T18:07:33.759560",
+      "dependencies": [
+        "task_018",
+        "task_015",
+        "task_009",
+        "task_010",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_020",
+      "description": "T50 Tagging L2-Domain — internal/domain/tagging.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_020.md",
+      "created_at": "2026-04-14T18:07:46.241448",
+      "updated_at": "2026-04-14T18:07:46.241454",
+      "dependencies": [
+        "task_004",
+        "task_005",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_021",
+      "description": "T51 Tagging L1-Storage — Ent schema + Repository, 部分唯一索引",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_021.md",
+      "created_at": "2026-04-14T18:08:06.743250",
+      "updated_at": "2026-04-14T18:08:06.743256",
+      "dependencies": [
+        "task_007",
+        "task_020",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_022",
+      "description": "T52 Tagging L4-Service: ApplyTag — internal/service/tagging_apply.go, 手动打标流程",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_022.md",
+      "created_at": "2026-04-14T18:08:27.847237",
+      "updated_at": "2026-04-14T18:08:27.847243",
+      "dependencies": [
+        "task_021",
+        "task_018",
+        "task_015",
+        "task_012",
+        "task_009",
+        "task_010"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_023",
+      "description": "T53 Tagging L4-Service: RevokeTag — internal/service/tagging_revoke.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_023.md",
+      "created_at": "2026-04-14T18:08:37.281604",
+      "updated_at": "2026-04-14T18:08:37.281611",
+      "dependencies": [
+        "task_021",
+        "task_009",
+        "task_010"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_024",
+      "description": "T54 Tagging L4-Service: 查询与统计 — internal/service/tagging_query.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_024.md",
+      "created_at": "2026-04-14T18:08:46.169271",
+      "updated_at": "2026-04-14T18:08:46.169277",
+      "dependencies": [
+        "task_021",
+        "task_018",
+        "task_015",
+        "task_012",
+        "task_009"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_025",
+      "description": "T55 Tagging L4-Service: 批量打标 — internal/service/tagging_batch.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_025.md",
+      "created_at": "2026-04-14T18:08:53.332108",
+      "updated_at": "2026-04-14T18:08:53.332119",
+      "dependencies": [
+        "task_022"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_026",
+      "description": "T60 Rule L2-Domain — internal/domain/rule.go + MatchConfig",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_026.md",
+      "created_at": "2026-04-14T18:09:10.959529",
+      "updated_at": "2026-04-14T18:09:10.959537",
+      "dependencies": [
+        "task_004",
+        "task_005",
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_027",
+      "description": "T61 Rule L1-Storage — Ent schema + Repository",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_027.md",
+      "created_at": "2026-04-14T18:09:23.013356",
+      "updated_at": "2026-04-14T18:09:23.013366",
+      "dependencies": [
+        "task_007",
+        "task_026",
+        "task_005"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_028",
+      "description": "T62 Rule L4-Service: CRUD — internal/service/rule.go, 跨模块校验",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_028.md",
+      "created_at": "2026-04-14T18:09:36.945040",
+      "updated_at": "2026-04-14T18:09:36.945046",
+      "dependencies": [
+        "task_027",
+        "task_018",
+        "task_015",
+        "task_012",
+        "task_009",
+        "task_010"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_029",
+      "description": "T70 插件: Builtin 关键词匹配器 — plugins/ruleengine/builtin/keyword.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_029.md",
+      "created_at": "2026-04-14T18:09:49.795039",
+      "updated_at": "2026-04-14T18:09:49.795045",
+      "dependencies": [
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_030",
+      "description": "T71 插件: External 规则服务适配器 — plugins/ruleengine/external/client.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_030.md",
+      "created_at": "2026-04-14T18:09:58.224538",
+      "updated_at": "2026-04-14T18:09:58.224544",
+      "dependencies": [
+        "task_006"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_031",
+      "description": "T80 AutoTag L4-Service — internal/service/auto_tag.go, 跨模块编排双通路",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_031.md",
+      "created_at": "2026-04-14T18:10:12.434703",
+      "updated_at": "2026-04-14T18:10:12.434708",
+      "dependencies": [
+        "task_027",
+        "task_022",
+        "task_029",
+        "task_030"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_032",
+      "description": "T90 Auth-center 客户端 + 拦截器 — internal/authz/client.go + interceptor.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_032.md",
+      "created_at": "2026-04-14T18:10:23.834819",
+      "updated_at": "2026-04-14T18:10:23.834829",
+      "dependencies": [
+        "task_003",
+        "task_009"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_033",
+      "description": "T91 Gateway: Handler + 路由 + 中间件 — internal/gateway/handler.go + routes.go + middleware.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_033.md",
+      "created_at": "2026-04-14T18:10:39.720042",
+      "updated_at": "2026-04-14T18:10:39.720052",
+      "dependencies": [
+        "task_002",
+        "task_032",
+        "task_013",
+        "task_016",
+        "task_019",
+        "task_022",
+        "task_023",
+        "task_024",
+        "task_025",
+        "task_028",
+        "task_031"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_034",
+      "description": "T92 Gateway: Health Endpoints — internal/gateway/health.go (/healthz + /readyz)",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_034.md",
+      "created_at": "2026-04-14T18:10:51.144729",
+      "updated_at": "2026-04-14T18:10:51.144738",
+      "dependencies": [
+        "task_007",
+        "task_009"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    },
+    {
+      "id": "task_035",
+      "description": "T93 main.go: 依赖注入组装 — cmd/server/main.go",
+      "template": "task",
+      "priority": "P1",
+      "status": "blocked",
+      "parent_id": null,
+      "output_req": "8k",
+      "context_hint": "8k",
+      "task_file": "tasks/task_035.md",
+      "created_at": "2026-04-14T18:11:06.355481",
+      "updated_at": "2026-04-14T18:11:06.355488",
+      "dependencies": [
+        "task_033",
+        "task_034",
+        "task_031",
+        "task_013",
+        "task_016",
+        "task_019",
+        "task_022",
+        "task_023",
+        "task_024",
+        "task_025",
+        "task_028",
+        "task_003",
+        "task_007",
+        "task_009"
+      ],
+      "dependency_type": "all",
+      "deadline": null,
+      "ralph": {
+        "iteration": 0,
+        "max_iterations": 7,
+        "quality_checks": {
+          "tests_passed": false,
+          "lint_passed": false,
+          "acceptance_met": false
+        },
+        "issues": [],
+        "optimization_history": []
+      }
+    }
+  ]
 }

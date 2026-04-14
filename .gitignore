@@ -4,15 +4,20 @@
 *.dll
 *.so
 *.dylib
+bin/
+dist/
 
 # Test binary
 *.test
 
-# Output of go coverage
+# Output of the go coverage tool
 *.out
 
-# Go workspace
+# Dependency directories
 vendor/
+
+# Go workspace file
+go.work
 
 # IDE
 .idea/
@@ -25,9 +30,43 @@ vendor/
 .DS_Store
 Thumbs.db
 
-# Build output
-/bin/
-/dist/
+# Environment files
+.env
+.env.local
+.env.*.local
 
-# Reference project
-/temp/
+# Secrets and credentials
+*.pem
+*.key
+*.crt
+secrets/
+config/secrets.yaml
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts
+build/
+
+# Coverage
+coverage.html
+coverage.out
+
+# Profiling
+pprof/
+
+# Database
+*.db
+*.sqlite
+
+# Redis dump
+dump.rdb
+
+# Generated protobuf files (if using buf)
+buf.gen.yaml
+buf.work.yaml
