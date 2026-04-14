@@ -1,10 +1,12 @@
 # vibe-go
 
+**[中文](README_zh.md)** | English
+
 Go production framework scaffold.
 
 ## What
 
-vibe-go 是一个可编译、可部署的 Go 后端框架脚手架，提供 5 层分层架构和插件倒置机制。fork 后填入业务逻辑即可产出生产级服务。
+vibe-go is a compilable, deployable Go backend framework scaffold with 5-layer architecture and plugin inversion. Fork it, fill in your business logic, and ship a production-grade service.
 
 ## Tech Stack
 
@@ -44,26 +46,26 @@ api/{package}/v1/            # Protobuf definitions
 
 ## Task Management with LRA (Recommended)
 
-vibe-go 的任务拆分和执行流程围绕 [LRA (Long-Running Agent)](https://hotjp.github.io/long-run-agent/) 设计。LRA 是专为 AI Agent 多轮迭代开发的任务管理工具，提供任务认领、质量门控、状态流转等能力。
+vibe-go's task breakdown and agent workflow are designed around [LRA (Long-Running Agent)](https://hotjp.github.io/long-run-agent/) — a task management tool purpose-built for AI agent multi-turn development.
 
-LRA 是可选的 — 你完全可以用自己的任务管理方式。但我们强烈推荐搭配使用，理由：
+LRA is optional. Use your own workflow if you prefer. But we strongly recommend pairing it with vibe-go:
 
-- 任务定义自带五段式上下文（目标/契约/依赖/约定/验收），agent 开箱即用
-- 原子认领 + 锁机制，多 agent 并行不冲突
-- Constitution 质量门控，确保每个 task 达标后才算完成
-- 与 `TASK-BREAKDOWN.md` 的拆分方法论无缝衔接
+- Task definitions carry 5-section context (goal / contract / deps / conventions / acceptance) — agent starts cold and still delivers
+- Atomic claim + lock mechanism — multiple agents work in parallel without conflicts
+- Constitution quality gates — every task must pass before marked complete
+- Seamless integration with `TASK-BREAKDOWN.md` methodology
 
-**安装：**
+**Install:**
 
 ```bash
-# 检查是否已安装
+# Check if installed
 lra --version
 
-# 安装
+# Install
 pip install long-run-agent
 ```
 
-**了解更多：** [文档主页](https://hotjp.github.io/long-run-agent/) | [GitHub](https://github.com/hotjp/long-run-agent)
+**Learn more:** [Documentation](https://hotjp.github.io/long-run-agent/) | [GitHub](https://github.com/hotjp/long-run-agent)
 
 ## Quick Start
 
@@ -79,12 +81,12 @@ pip install long-run-agent
 Read docs in this order. Each doc serves a single purpose — don't scan everything upfront.
 
 ```
-CLAUDE.md               ← Architecture constraints & coding rules (always loaded)
-    ↓
-docs/TASK-BREAKDOWN.md  ← Pick task → get self-contained 5-section context
-    ↓                         (no need to read other docs unless task references them)
-docs/DESIGN.md          ← Business details: entities, API proto, DDL, flows
-docs/architecture.md    ← Technical details: config, logging, telemetry, testing
+CLAUDE.md               <- Architecture constraints & coding rules (always loaded)
+    |
+docs/TASK-BREAKDOWN.md  <- Pick task -> get self-contained 5-section context
+    |                         (no need to read other docs unless task references them)
+docs/DESIGN.md          <- Business details: entities, API proto, DDL, flows
+docs/architecture.md    <- Technical details: config, logging, telemetry, testing
 ```
 
 ### Agent Workflow
@@ -93,11 +95,11 @@ docs/architecture.md    ← Technical details: config, logging, telemetry, testi
 lra ready                              # Find available tasks
 lra claim <id>                         # Claim atomically
 lra show <id>                          # Read task details
-    ↓
-Read TASK-BREAKDOWN.md §TaskID         # Self-contained context (goal/contract/deps/conventions/acceptance)
-    ↓
-Implement → Test → Commit
-    ↓
+    |
+Read TASK-BREAKDOWN.md section TaskID  # Self-contained context
+    |
+Implement -> Test -> Commit
+    |
 lra set <id> completed
 lra check <id>                         # Run Constitution quality gates
 lra set <id> truly_completed           # Done
@@ -106,14 +108,14 @@ lra set <id> truly_completed           # Done
 ### Task Dependency Map
 
 ```
-Phase 0:  T00 → T01 ∥ T02 ∥ T03 → T04 → T05
-Phase 1:  T01 → T10 ∥ T12;  T10 → T11 ∥ T13
-Phase 2:  T05 → T20∥T30∥T40∥T50∥T60          (Domain, parallel)
-               → T21∥T31∥T41∥T51∥T61          (Storage, after each Domain)
-               → T22∥T32∥T42∥T53∥T62          (Service, after each Storage)
-Phase 5:  T05 → T70 ∥ T71                     (Plugins, parallel)
-Phase 6:  T61+T52+T70+T71 → T80               (AutoTag orchestration)
-Phase 7:  All → T90 → T91 → T92 → T93         (Gateway + Authz + Assembly)
+Phase 0:  T00 -> T01 || T02 || T03 -> T04 -> T05
+Phase 1:  T01 -> T10 || T12;  T10 -> T11 || T13
+Phase 2:  T05 -> T20||T30||T40||T50||T60          (Domain, parallel)
+                 -> T21||T31||T41||T51||T61          (Storage, after each Domain)
+                 -> T22||T32||T42||T53||T62          (Service, after each Storage)
+Phase 5:  T05 -> T70 || T71                     (Plugins, parallel)
+Phase 6:  T61+T52+T70+T71 -> T80               (AutoTag orchestration)
+Phase 7:  All -> T90 -> T91 -> T92 -> T93         (Gateway + Authz + Assembly)
 ```
 
 ## Documentation
