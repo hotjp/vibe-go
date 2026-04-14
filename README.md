@@ -42,6 +42,29 @@ plugins/                     # Plugin implementations
 api/{package}/v1/            # Protobuf definitions
 ```
 
+## Task Management with LRA (Recommended)
+
+vibe-go 的任务拆分和执行流程围绕 [LRA (Long-Running Agent)](https://hotjp.github.io/long-run-agent/) 设计。LRA 是专为 AI Agent 多轮迭代开发的任务管理工具，提供任务认领、质量门控、状态流转等能力。
+
+LRA 是可选的 — 你完全可以用自己的任务管理方式。但我们强烈推荐搭配使用，理由：
+
+- 任务定义自带五段式上下文（目标/契约/依赖/约定/验收），agent 开箱即用
+- 原子认领 + 锁机制，多 agent 并行不冲突
+- Constitution 质量门控，确保每个 task 达标后才算完成
+- 与 `TASK-BREAKDOWN.md` 的拆分方法论无缝衔接
+
+**安装：**
+
+```bash
+# 检查是否已安装
+lra --version
+
+# 安装
+pip install long-run-agent
+```
+
+**了解更多：** [文档主页](https://hotjp.github.io/long-run-agent/) | [GitHub](https://github.com/hotjp/long-run-agent)
+
 ## Quick Start
 
 ```bash

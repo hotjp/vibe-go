@@ -344,6 +344,7 @@
             <a href="#pain">Pain Points</a>
             <a href="#cases">Bad Cases</a>
             <a href="#solution">Solution</a>
+            <a href="https://hotjp.github.io/long-run-agent/" target="_blank">LRA</a>
             <a href="https://github.com/hotjp/vibe-go" target="_blank">GitHub</a>
         </div>
     </div>
@@ -545,6 +546,48 @@
                 <tr><td>Docs</td><td>buf + connectrpc/reflection</td><td>Proto is the contract, no Swagger needed</td></tr>
             </tbody>
         </table>
+    </div>
+</section>
+
+<!-- LRA -->
+<section>
+    <div class="container">
+        <h2>Built for <span class="dim">LRA</span></h2>
+        <p class="subtitle">
+            vibe-go's task breakdown is designed to work with
+            <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">LRA (Long-Running Agent)</a> &mdash;
+            a task management tool purpose-built for AI agent multi-turn development.
+        </p>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
+                <h3>Self-Contained Tasks</h3>
+                <p>Each task carries its own context: goal, contracts, dependencies, conventions, acceptance criteria. Agent starts cold and still delivers.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
+                <h3>Atomic Claim + Lock</h3>
+                <p>Multiple agents can work in parallel. Each task is claimed atomically &mdash; no conflicts, no duplicated work.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
+                <h3>Quality Gates</h3>
+                <p>Constitution-based checks ensure every task meets the bar before marking complete. Tests pass, lint clean, architecture valid.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
+                <h3>Optional but Recommended</h3>
+                <p>LRA is not required. Use your own workflow if you prefer. But the task breakdown format and agent workflow are designed with LRA in mind.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 32px;">
+            <code style="background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; font-size: 14px; color: var(--text-dim);">$ pip install long-run-agent</code>
+            <div style="margin-top: 14px; font-size: 14px; color: var(--text-dim);">
+                <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">Documentation</a>
+                &nbsp;&middot;&nbsp;
+                <a href="https://github.com/hotjp/long-run-agent" target="_blank" style="color: var(--accent); text-decoration: none;">GitHub</a>
+            </div>
+        </div>
     </div>
 </section>
 
