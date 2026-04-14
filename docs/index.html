@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,14 +58,43 @@
             letter-spacing: -0.5px;
         }
         nav .brand span { color: var(--text-dim); font-weight: 400; }
+        nav .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
         nav a {
             color: var(--text-dim);
             text-decoration: none;
             font-size: 14px;
-            margin-left: 24px;
             transition: color 0.2s;
         }
         nav a:hover { color: var(--text); }
+
+        /* --- Lang Toggle --- */
+        .lang-toggle {
+            display: inline-flex;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            padding: 4px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lang-toggle button.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 600;
+        }
+        .lang-toggle button:hover:not(.active) {
+            color: var(--text);
+        }
 
         /* --- Hero --- */
         .hero {
@@ -340,24 +369,28 @@
 <nav>
     <div class="container">
         <div class="brand">vibe-go <span>/ production framework</span></div>
-        <div>
-            <a href="#pain">Pain Points</a>
-            <a href="#cases">Bad Cases</a>
-            <a href="#solution">Solution</a>
+        <div class="nav-links">
+            <a href="#pain" data-i18n="nav_pain">Pain Points</a>
+            <a href="#cases" data-i18n="nav_cases">Bad Cases</a>
+            <a href="#solution" data-i18n="nav_solution">Solution</a>
             <a href="https://hotjp.github.io/long-run-agent/" target="_blank">LRA</a>
             <a href="https://github.com/hotjp/vibe-go" target="_blank">GitHub</a>
+            <div class="lang-toggle">
+                <button onclick="setLang('en')" id="btn-en">EN</button>
+                <button onclick="setLang('zh')" id="btn-zh">中文</button>
+            </div>
         </div>
     </div>
 </nav>
 
 <!-- Hero -->
 <div class="hero container">
-    <div class="tag">Architecture-First AI Development</div>
+    <div class="tag" data-i18n="hero_tag">Architecture-First AI Development</div>
     <h1>
-        Stop vibing.<br>
-        <span class="line2">Start building.</span>
+        <span data-i18n="hero_line1">Stop vibing.</span><br>
+        <span class="line2" data-i18n="hero_line2">Start building.</span>
     </h1>
-    <p>
+    <p data-i18n="hero_desc">
         AI agents write code fast, but without architectural constraints,
         they produce unmaintainable spaghetti. vibe-go provides the structure
         so AI produces production-grade Go from day one.
@@ -375,31 +408,31 @@
 <!-- Pain Points -->
 <section id="pain">
     <div class="container">
-        <h2>The Vibe Coding Problem <span class="dim">is real</span></h2>
-        <p class="subtitle">
+        <h2 data-i18n="pain_title">The Vibe Coding Problem <span class="dim">is real</span></h2>
+        <p class="subtitle" data-i18n="pain_subtitle">
             "Vibe coding" — letting AI write code by intuition without engineering rigor.
             It feels productive until it isn't.
         </p>
         <div class="pain-grid">
             <div class="pain-card">
                 <div class="icon red">&#x271A;</div>
-                <h3>Architecture Drift</h3>
-                <p>AI generates code that works in isolation. Each file follows a different pattern. No consistent layering, no dependency direction. Three months in, the codebase is a maze.</p>
+                <h3 data-i18n="pain1_h">Architecture Drift</h3>
+                <p data-i18n="pain1_p">AI generates code that works in isolation. Each file follows a different pattern. No consistent layering, no dependency direction. Three months in, the codebase is a maze.</p>
             </div>
             <div class="pain-card">
                 <div class="icon amber">&#x26A0;</div>
-                <h3>Context Window Waste</h3>
-                <p>Without clear interfaces, the agent reads 50 files to understand how to add one field. The context window fills with boilerplate before reaching the actual task.</p>
+                <h3 data-i18n="pain2_h">Context Window Waste</h3>
+                <p data-i18n="pain2_p">Without clear interfaces, the agent reads 50 files to understand how to add one field. The context window fills with boilerplate before reaching the actual task.</p>
             </div>
             <div class="pain-card">
                 <div class="icon red">&#x2716;</div>
-                <h3>Implicit Coupling</h3>
-                <p>Agent A writes storage logic that imports service types. Agent B adds a handler that calls the DB directly. Nobody notices until the refactor costs 10x.</p>
+                <h3 data-i18n="pain3_h">Implicit Coupling</h3>
+                <p data-i18n="pain3_p">Agent A writes storage logic that imports service types. Agent B adds a handler that calls the DB directly. Nobody notices until the refactor costs 10x.</p>
             </div>
             <div class="pain-card">
                 <div class="icon amber">&#x21BB;</div>
-                <h3>Rewrite Loops</h3>
-                <p>Sprint 1: AI generates a working feature. Sprint 2: new feature conflicts with Sprint 1's architecture. Sprint 3: AI suggests rewriting everything. Sound familiar?</p>
+                <h3 data-i18n="pain4_h">Rewrite Loops</h3>
+                <p data-i18n="pain4_p">Sprint 1: AI generates a working feature. Sprint 2: new feature conflicts with Sprint 1's architecture. Sprint 3: AI suggests rewriting everything. Sound familiar?</p>
             </div>
         </div>
     </div>
@@ -408,65 +441,65 @@
 <!-- Bad Cases -->
 <section id="cases">
     <div class="container">
-        <h2>AI Code <span class="dim">Bad Cases</span></h2>
-        <p class="subtitle">
+        <h2 data-i18n="cases_title">AI Code <span class="dim">Bad Cases</span></h2>
+        <p class="subtitle" data-i18n="cases_subtitle">
             Patterns we've seen repeated across AI-generated Go projects.
         </p>
         <div class="case-list">
             <div class="case-item">
                 <div class="marker">01</div>
                 <div class="text">
-                    <h4>God Handler — 300 lines of business logic in an HTTP handler</h4>
-                    <p>Validation, DB queries, Redis calls, event publishing — all in one function. The agent "just made it work" without layering.</p>
+                    <h4 data-i18n="case1_h">God Handler — 300 lines of business logic in an HTTP handler</h4>
+                    <p data-i18n="case1_p">Validation, DB queries, Redis calls, event publishing — all in one function. The agent "just made it work" without layering.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">02</div>
                 <div class="text">
-                    <h4>Viper Global Singleton — <code>viper.Get("db.host")</code> everywhere</h4>
-                    <p>Scattered config access makes testing impossible. No dependency injection, no explicit contracts between components.</p>
+                    <h4 data-i18n="case2_h">Viper Global Singleton — <code>viper.Get("db.host")</code> everywhere</h4>
+                    <p data-i18n="case2_p">Scattered config access makes testing impossible. No dependency injection, no explicit contracts between components.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">03</div>
                 <div class="text">
-                    <h4>fmt.Println Logging — unstructured, unsearchable, unfilterable</h4>
-                    <p>AI defaults to <code>fmt.Println</code> or <code>log.Println</code>. No trace_id, no structured fields, no level control. Production debugging becomes guesswork.</p>
+                    <h4 data-i18n="case3_h">fmt.Println Logging — unstructured, unsearchable, unfilterable</h4>
+                    <p data-i18n="case3_p">AI defaults to <code>fmt.Println</code> or <code>log.Println</code>. No trace_id, no structured fields, no level control. Production debugging becomes guesswork.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">04</div>
                 <div class="text">
-                    <h4>No Error Codes — every error is <code>fmt.Errorf("something failed")</code></h4>
-                    <p>No structured error codes, no layer attribution. When an API returns 500, you have no idea if it's a DB issue, a business rule violation, or a gateway timeout.</p>
+                    <h4 data-i18n="case4_h">No Error Codes — every error is <code>fmt.Errorf("something failed")</code></h4>
+                    <p data-i18n="case4_p">No structured error codes, no layer attribution. When an API returns 500, you have no idea if it's a DB issue, a business rule violation, or a gateway timeout.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">05</div>
                 <div class="text">
-                    <h4>Missing Transaction Boundaries — writes that aren't atomic</h4>
-                    <p>Agent creates a record, then publishes an event. If the event publish fails, the record exists but nobody knows about it. No Outbox pattern.</p>
+                    <h4 data-i18n="case5_h">Missing Transaction Boundaries — writes that aren't atomic</h4>
+                    <p data-i18n="case5_p">Agent creates a record, then publishes an event. If the event publish fails, the record exists but nobody knows about it. No Outbox pattern.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">06</div>
                 <div class="text">
-                    <h4>Copy-Paste Mocks — tests that test nothing</h4>
-                    <p>Agent generates mocks that return hardcoded values. Tests pass, but the code doesn't actually work in production. No integration tests at all.</p>
+                    <h4 data-i18n="case6_h">Copy-Paste Mocks — tests that test nothing</h4>
+                    <p data-i18n="case6_p">Agent generates mocks that return hardcoded values. Tests pass, but the code doesn't actually work in production. No integration tests at all.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">07</div>
                 <div class="text">
-                    <h4>Framework Salad — Gin + Echo + net/http in the same project</h4>
-                    <p>Agent picks whatever it's seen most in training data. The project ends up with three HTTP frameworks, two ORMs, and four logging libraries.</p>
+                    <h4 data-i18n="case7_h">Framework Salad — Gin + Echo + net/http in the same project</h4>
+                    <p data-i18n="case7_p">Agent picks whatever it's seen most in training data. The project ends up with three HTTP frameworks, two ORMs, and four logging libraries.</p>
                 </div>
             </div>
             <div class="case-item">
                 <div class="marker">08</div>
                 <div class="text">
-                    <h4>No Health Checks — deploy and pray</h4>
-                    <p>No <code>/healthz</code>, no <code>/readyz</code>, no pprof, no metrics endpoint. Kubernetes can't tell if the service is alive. Observability is an afterthought.</p>
+                    <h4 data-i18n="case8_h">No Health Checks — deploy and pray</h4>
+                    <p data-i18n="case8_p">No <code>/healthz</code>, no <code>/readyz</code>, no pprof, no metrics endpoint. Kubernetes can't tell if the service is alive. Observability is an afterthought.</p>
                 </div>
             </div>
         </div>
@@ -476,48 +509,48 @@
 <!-- Solution -->
 <section id="solution">
     <div class="container">
-        <h2>vibe-go <span class="dim">= Architecture as Code</span></h2>
-        <p class="subtitle">
+        <h2 data-i18n="sol_title">vibe-go <span class="dim">= Architecture as Code</span></h2>
+        <p class="subtitle" data-i18n="sol_subtitle">
             Not another framework. A scaffold with architectural constraints baked in.
             AI agents work within the structure — not against it.
         </p>
 
         <div class="arch-diagram">
-            <pre><span class="layer">L5-Gateway</span>   <span class="arrow">──&gt;</span>  Connect handler, middleware, routing
-    <span class="arrow">│</span>
-<span class="layer">L3-Authz</span>     <span class="arrow">──&gt;</span>  Permission check, rate limiting
-    <span class="arrow">│</span>
-<span class="layer">L4-Service</span>   <span class="arrow">──&gt;</span>  Business orchestration, validation, <span class="comment">interfaces.go</span>
-    <span class="arrow">│</span>
-<span class="layer">L2-Domain</span>    <span class="arrow">──&gt;</span>  Pure Go structs, state machine, events  <span class="comment">// zero deps</span>
-    <span class="arrow">│</span>
-<span class="layer">L1-Storage</span>   <span class="arrow">──&gt;</span>  Ent, PostgreSQL, Redis, Outbox</pre>
+            <pre><span class="layer">L5-Gateway</span>   <span class="arrow">&#9552;&#9552;&gt;</span>  <span data-i18n="arch_l5">Connect handler, middleware, routing</span>
+    <span class="arrow">&#9474;</span>
+<span class="layer">L3-Authz</span>     <span class="arrow">&#9552;&#9552;&gt;</span>  <span data-i18n="arch_l3">Permission check, rate limiting</span>
+    <span class="arrow">&#9474;</span>
+<span class="layer">L4-Service</span>   <span class="arrow">&#9552;&#9552;&gt;</span>  <span data-i18n="arch_l4">Business orchestration, validation</span>  <span class="comment">// interfaces.go</span>
+    <span class="arrow">&#9474;</span>
+<span class="layer">L2-Domain</span>    <span class="arrow">&#9552;&#9552;&gt;</span>  <span data-i18n="arch_l2">Pure Go structs, state machine, events</span>  <span class="comment">// zero deps</span>
+    <span class="arrow">&#9474;</span>
+<span class="layer">L1-Storage</span>   <span class="arrow">&#9552;&#9552;&gt;</span>  <span data-i18n="arch_l1">Ent, PostgreSQL, Redis, Outbox</span></pre>
         </div>
 
         <div class="feature-grid">
             <div class="feature-item">
-                <h4>5-Layer Enforced</h4>
-                <p>Dependency direction locked. <code>check_architecture.sh</code> validates at CI time. Agent can't accidentally violate boundaries.</p>
+                <h4 data-i18n="feat1_h">5-Layer Enforced</h4>
+                <p data-i18n="feat1_p">Dependency direction locked. <code>check_architecture.sh</code> validates at CI time. Agent can't accidentally violate boundaries.</p>
             </div>
             <div class="feature-item">
-                <h4>Interface Inversion</h4>
-                <p>Core defines interfaces, plugins implement them. DI in main.go. Swap Meilisearch for Elasticsearch — zero changes to business logic.</p>
+                <h4 data-i18n="feat2_h">Interface Inversion</h4>
+                <p data-i18n="feat2_p">Core defines interfaces, plugins implement them. DI in main.go. Swap Meilisearch for Elasticsearch — zero changes to business logic.</p>
             </div>
             <div class="feature-item">
-                <h4>Agent-Ready Tasks</h4>
-                <p>Each task = one module &times; one layer. Self-contained context, precise interface contracts, executable acceptance criteria.</p>
+                <h4 data-i18n="feat3_h">Agent-Ready Tasks</h4>
+                <p data-i18n="feat3_p">Each task = one module &times; one layer. Self-contained context, precise interface contracts, executable acceptance criteria.</p>
             </div>
             <div class="feature-item">
-                <h4>Structured Errors</h4>
-                <p><code>L{layer}{seq}</code> error codes. Every error carries its layer. <code>L4_601</code> = service validation failed. No guessing.</p>
+                <h4 data-i18n="feat4_h">Structured Errors</h4>
+                <p data-i18n="feat4_p"><code>L{layer}{seq}</code> error codes. Every error carries its layer. <code>L4_601</code> = service validation failed. No guessing.</p>
             </div>
             <div class="feature-item">
-                <h4>Outbox Built-in</h4>
-                <p>Business writes and event publishing in one transaction. No lost events, no eventual consistency surprises.</p>
+                <h4 data-i18n="feat5_h">Outbox Built-in</h4>
+                <p data-i18n="feat5_p">Business writes and event publishing in one transaction. No lost events, no eventual consistency surprises.</p>
             </div>
             <div class="feature-item">
-                <h4>Zero Decision Fatigue</h4>
-                <p>Logging: slog. Config: koanf. ORM: ent. HTTP: net/http. Every choice is made. Agent focuses on business, not bike-shedding.</p>
+                <h4 data-i18n="feat6_h">Zero Decision Fatigue</h4>
+                <p data-i18n="feat6_p">Logging: slog. Config: koanf. ORM: ent. HTTP: net/http. Every choice is made. Agent focuses on business, not bike-shedding.</p>
             </div>
         </div>
     </div>
@@ -526,24 +559,24 @@
 <!-- Tech Stack -->
 <section>
     <div class="container">
-        <h2>Tech Stack <span class="dim">— decided, not debated</span></h2>
+        <h2 data-i18n="stack_title">Tech Stack <span class="dim">&mdash; decided, not debated</span></h2>
         <table class="stack-table">
             <thead>
-                <tr><th>Category</th><th>Choice</th><th>Why</th></tr>
+                <tr><th data-i18n="th_category">Category</th><th data-i18n="th_choice">Choice</th><th data-i18n="th_why">Why</th></tr>
             </thead>
             <tbody>
-                <tr><td>API</td><td>connect-go</td><td>gRPC + HTTP dual-mode, one proto file</td></tr>
-                <tr><td>Protobuf</td><td>buf</td><td>Code gen, lint, breaking change detection</td></tr>
-                <tr><td>ORM</td><td>ent (pgx)</td><td>Type-safe, code-gen, graph relations</td></tr>
-                <tr><td>Config</td><td>koanf</td><td>YAML + env, explicit DI, no global singleton</td></tr>
-                <tr><td>Logging</td><td>log/slog</td><td>Stdlib, zero deps, JSON handler</td></tr>
-                <tr><td>Cache</td><td>go-redis/v9</td><td>Cache + event stream + distributed lock</td></tr>
-                <tr><td>ID</td><td>oklog/ulid</td><td>Globally unique, time-sortable</td></tr>
-                <tr><td>Tracing</td><td>OpenTelemetry</td><td>OTLP export, probability sampling</td></tr>
-                <tr><td>Metrics</td><td>Otel + Prometheus</td><td>:9090/metrics, standard format</td></tr>
-                <tr><td>Migration</td><td>golang-migrate</td><td>Versioned SQL, CLI + library</td></tr>
-                <tr><td>Testing</td><td>testify + gomock + testcontainers</td><td>Unit / integration / E2E coverage</td></tr>
-                <tr><td>Docs</td><td>buf + connectrpc/reflection</td><td>Proto is the contract, no Swagger needed</td></tr>
+                <tr><td>API</td><td>connect-go</td><td data-i18n="stack_api">gRPC + HTTP dual-mode, one proto file</td></tr>
+                <tr><td>Protobuf</td><td>buf</td><td data-i18n="stack_proto">Code gen, lint, breaking change detection</td></tr>
+                <tr><td>ORM</td><td>ent (pgx)</td><td data-i18n="stack_orm">Type-safe, code-gen, graph relations</td></tr>
+                <tr><td>Config</td><td>koanf</td><td data-i18n="stack_config">YAML + env, explicit DI, no global singleton</td></tr>
+                <tr><td>Logging</td><td>log/slog</td><td data-i18n="stack_log">Stdlib, zero deps, JSON handler</td></tr>
+                <tr><td>Cache</td><td>go-redis/v9</td><td data-i18n="stack_cache">Cache + event stream + distributed lock</td></tr>
+                <tr><td>ID</td><td>oklog/ulid</td><td data-i18n="stack_id">Globally unique, time-sortable</td></tr>
+                <tr><td>Tracing</td><td>OpenTelemetry</td><td data-i18n="stack_trace">OTLP export, probability sampling</td></tr>
+                <tr><td>Metrics</td><td>Otel + Prometheus</td><td data-i18n="stack_metrics">:9090/metrics, standard format</td></tr>
+                <tr><td>Migration</td><td>golang-migrate</td><td data-i18n="stack_migrate">Versioned SQL, CLI + library</td></tr>
+                <tr><td>Testing</td><td>testify + gomock + testcontainers</td><td data-i18n="stack_test">Unit / integration / E2E coverage</td></tr>
+                <tr><td>Docs</td><td>buf + connectrpc/reflection</td><td data-i18n="stack_docs">Proto is the contract, no Swagger needed</td></tr>
             </tbody>
         </table>
     </div>
@@ -552,8 +585,8 @@
 <!-- LRA -->
 <section>
     <div class="container">
-        <h2>Built for <span class="dim">LRA</span></h2>
-        <p class="subtitle">
+        <h2 data-i18n="lra_title">Built for <span class="dim">LRA</span></h2>
+        <p class="subtitle" data-i18n="lra_subtitle">
             vibe-go's task breakdown is designed to work with
             <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">LRA (Long-Running Agent)</a> &mdash;
             a task management tool purpose-built for AI agent multi-turn development.
@@ -561,29 +594,29 @@
         <div class="pain-grid">
             <div class="pain-card">
                 <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
-                <h3>Self-Contained Tasks</h3>
-                <p>Each task carries its own context: goal, contracts, dependencies, conventions, acceptance criteria. Agent starts cold and still delivers.</p>
+                <h3 data-i18n="lra1_h">Self-Contained Tasks</h3>
+                <p data-i18n="lra1_p">Each task carries its own context: goal, contracts, dependencies, conventions, acceptance criteria. Agent starts cold and still delivers.</p>
             </div>
             <div class="pain-card">
                 <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
-                <h3>Atomic Claim + Lock</h3>
-                <p>Multiple agents can work in parallel. Each task is claimed atomically &mdash; no conflicts, no duplicated work.</p>
+                <h3 data-i18n="lra2_h">Atomic Claim + Lock</h3>
+                <p data-i18n="lra2_p">Multiple agents can work in parallel. Each task is claimed atomically &mdash; no conflicts, no duplicated work.</p>
             </div>
             <div class="pain-card">
                 <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
-                <h3>Quality Gates</h3>
-                <p>Constitution-based checks ensure every task meets the bar before marking complete. Tests pass, lint clean, architecture valid.</p>
+                <h3 data-i18n="lra3_h">Quality Gates</h3>
+                <p data-i18n="lra3_p">Constitution-based checks ensure every task meets the bar before marking complete. Tests pass, lint clean, architecture valid.</p>
             </div>
             <div class="pain-card">
                 <div class="icon" style="background: var(--accent-dim); color: var(--accent);">&#x2714;</div>
-                <h3>Optional but Recommended</h3>
-                <p>LRA is not required. Use your own workflow if you prefer. But the task breakdown format and agent workflow are designed with LRA in mind.</p>
+                <h3 data-i18n="lra4_h">Optional but Recommended</h3>
+                <p data-i18n="lra4_p">LRA is not required. Use your own workflow if you prefer. But the task breakdown format and agent workflow are designed with LRA in mind.</p>
             </div>
         </div>
         <div style="text-align: center; margin-top: 32px;">
             <code style="background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; font-size: 14px; color: var(--text-dim);">$ pip install long-run-agent</code>
             <div style="margin-top: 14px; font-size: 14px; color: var(--text-dim);">
-                <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">Documentation</a>
+                <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;" data-i18n="lra_docs">Documentation</a>
                 &nbsp;&middot;&nbsp;
                 <a href="https://github.com/hotjp/long-run-agent" target="_blank" style="color: var(--accent); text-decoration: none;">GitHub</a>
             </div>
@@ -594,12 +627,12 @@
 <!-- CTA -->
 <div class="cta">
     <div class="container">
-        <h2>Fork. Fill. Ship.</h2>
-        <p>
+        <h2 data-i18n="cta_h">Fork. Fill. Ship.</h2>
+        <p data-i18n="cta_p">
             Clone the scaffold, fill in your CLAUDE.md, hand it to an agent.
             Architecture is pre-decided. The agent just writes business code.
         </p>
-        <a class="cta-button" href="https://github.com/hotjp/vibe-go">View on GitHub</a>
+        <a class="cta-button" href="https://github.com/hotjp/vibe-go" data-i18n="cta_btn">View on GitHub</a>
     </div>
 </div>
 
@@ -609,6 +642,195 @@
         vibe-go &mdash; MIT License &mdash; Architecture-First AI Development
     </div>
 </footer>
+
+<script>
+const i18n = {
+    en: {
+        nav_pain: "Pain Points",
+        nav_cases: "Bad Cases",
+        nav_solution: "Solution",
+        hero_tag: "Architecture-First AI Development",
+        hero_line1: "Stop vibing.",
+        hero_line2: "Start building.",
+        hero_desc: "AI agents write code fast, but without architectural constraints, they produce unmaintainable spaghetti. vibe-go provides the structure so AI produces production-grade Go from day one.",
+        pain_title: 'The Vibe Coding Problem <span class="dim">is real</span>',
+        pain_subtitle: '"Vibe coding" — letting AI write code by intuition without engineering rigor. It feels productive until it isn\'t.',
+        pain1_h: "Architecture Drift",
+        pain1_p: "AI generates code that works in isolation. Each file follows a different pattern. No consistent layering, no dependency direction. Three months in, the codebase is a maze.",
+        pain2_h: "Context Window Waste",
+        pain2_p: "Without clear interfaces, the agent reads 50 files to understand how to add one field. The context window fills with boilerplate before reaching the actual task.",
+        pain3_h: "Implicit Coupling",
+        pain3_p: "Agent A writes storage logic that imports service types. Agent B adds a handler that calls the DB directly. Nobody notices until the refactor costs 10x.",
+        pain4_h: "Rewrite Loops",
+        pain4_p: "Sprint 1: AI generates a working feature. Sprint 2: new feature conflicts with Sprint 1's architecture. Sprint 3: AI suggests rewriting everything. Sound familiar?",
+        cases_title: 'AI Code <span class="dim">Bad Cases</span>',
+        cases_subtitle: "Patterns we've seen repeated across AI-generated Go projects.",
+        case1_h: 'God Handler — 300 lines of business logic in an HTTP handler',
+        case1_p: 'Validation, DB queries, Redis calls, event publishing — all in one function. The agent "just made it work" without layering.',
+        case2_h: 'Viper Global Singleton — <code>viper.Get("db.host")</code> everywhere',
+        case2_p: 'Scattered config access makes testing impossible. No dependency injection, no explicit contracts between components.',
+        case3_h: 'fmt.Println Logging — unstructured, unsearchable, unfilterable',
+        case3_p: 'AI defaults to <code>fmt.Println</code> or <code>log.Println</code>. No trace_id, no structured fields, no level control. Production debugging becomes guesswork.',
+        case4_h: 'No Error Codes — every error is <code>fmt.Errorf("something failed")</code>',
+        case4_p: "No structured error codes, no layer attribution. When an API returns 500, you have no idea if it's a DB issue, a business rule violation, or a gateway timeout.",
+        case5_h: 'Missing Transaction Boundaries — writes that aren\'t atomic',
+        case5_p: "Agent creates a record, then publishes an event. If the event publish fails, the record exists but nobody knows about it. No Outbox pattern.",
+        case6_h: "Copy-Paste Mocks — tests that test nothing",
+        case6_p: "Agent generates mocks that return hardcoded values. Tests pass, but the code doesn't actually work in production. No integration tests at all.",
+        case7_h: "Framework Salad — Gin + Echo + net/http in the same project",
+        case7_p: "Agent picks whatever it's seen most in training data. The project ends up with three HTTP frameworks, two ORMs, and four logging libraries.",
+        case8_h: "No Health Checks — deploy and pray",
+        case8_p: 'No <code>/healthz</code>, no <code>/readyz</code>, no pprof, no metrics endpoint. Kubernetes can\'t tell if the service is alive. Observability is an afterthought.',
+        sol_title: 'vibe-go <span class="dim">= Architecture as Code</span>',
+        sol_subtitle: "Not another framework. A scaffold with architectural constraints baked in. AI agents work within the structure — not against it.",
+        arch_l5: "Connect handler, middleware, routing",
+        arch_l3: "Permission check, rate limiting",
+        arch_l4: "Business orchestration, validation",
+        arch_l2: "Pure Go structs, state machine, events",
+        arch_l1: "Ent, PostgreSQL, Redis, Outbox",
+        feat1_h: "5-Layer Enforced",
+        feat1_p: 'Dependency direction locked. <code>check_architecture.sh</code> validates at CI time. Agent can\'t accidentally violate boundaries.',
+        feat2_h: "Interface Inversion",
+        feat2_p: "Core defines interfaces, plugins implement them. DI in main.go. Swap Meilisearch for Elasticsearch — zero changes to business logic.",
+        feat3_h: "Agent-Ready Tasks",
+        feat3_p: "Each task = one module &times; one layer. Self-contained context, precise interface contracts, executable acceptance criteria.",
+        feat4_h: "Structured Errors",
+        feat4_p: '<code>L{layer}{seq}</code> error codes. Every error carries its layer. <code>L4_601</code> = service validation failed. No guessing.',
+        feat5_h: "Outbox Built-in",
+        feat5_p: "Business writes and event publishing in one transaction. No lost events, no eventual consistency surprises.",
+        feat6_h: "Zero Decision Fatigue",
+        feat6_p: "Logging: slog. Config: koanf. ORM: ent. HTTP: net/http. Every choice is made. Agent focuses on business, not bike-shedding.",
+        stack_title: 'Tech Stack <span class="dim">&mdash; decided, not debated</span>',
+        th_category: "Category", th_choice: "Choice", th_why: "Why",
+        stack_api: "gRPC + HTTP dual-mode, one proto file",
+        stack_proto: "Code gen, lint, breaking change detection",
+        stack_orm: "Type-safe, code-gen, graph relations",
+        stack_config: "YAML + env, explicit DI, no global singleton",
+        stack_log: "Stdlib, zero deps, JSON handler",
+        stack_cache: "Cache + event stream + distributed lock",
+        stack_id: "Globally unique, time-sortable",
+        stack_trace: "OTLP export, probability sampling",
+        stack_metrics: ":9090/metrics, standard format",
+        stack_migrate: "Versioned SQL, CLI + library",
+        stack_test: "Unit / integration / E2E coverage",
+        stack_docs: "Proto is the contract, no Swagger needed",
+        lra_title: 'Built for <span class="dim">LRA</span>',
+        lra_subtitle: 'vibe-go\'s task breakdown is designed to work with <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">LRA (Long-Running Agent)</a> &mdash; a task management tool purpose-built for AI agent multi-turn development.',
+        lra1_h: "Self-Contained Tasks",
+        lra1_p: "Each task carries its own context: goal, contracts, dependencies, conventions, acceptance criteria. Agent starts cold and still delivers.",
+        lra2_h: "Atomic Claim + Lock",
+        lra2_p: "Multiple agents can work in parallel. Each task is claimed atomically &mdash; no conflicts, no duplicated work.",
+        lra3_h: "Quality Gates",
+        lra3_p: "Constitution-based checks ensure every task meets the bar before marking complete. Tests pass, lint clean, architecture valid.",
+        lra4_h: "Optional but Recommended",
+        lra4_p: "LRA is not required. Use your own workflow if you prefer. But the task breakdown format and agent workflow are designed with LRA in mind.",
+        lra_docs: "Documentation",
+        cta_h: "Fork. Fill. Ship.",
+        cta_p: "Clone the scaffold, fill in your CLAUDE.md, hand it to an agent. Architecture is pre-decided. The agent just writes business code.",
+        cta_btn: "View on GitHub"
+    },
+    zh: {
+        nav_pain: "痛点",
+        nav_cases: "反面案例",
+        nav_solution: "解决方案",
+        hero_tag: "架构优先的 AI 开发",
+        hero_line1: "别再 vibe 了。",
+        hero_line2: "开始构建。",
+        hero_desc: "AI agent 写代码很快，但没有架构约束，产出的都是不可维护的意大利面。vibe-go 提供结构，让 AI 从第一天就写出生产级 Go 代码。",
+        pain_title: 'Vibe Coding 的问题<span class="dim">是真实存在的</span>',
+        pain_subtitle: '"Vibe coding" — 让 AI 凭直觉写代码，不管工程规范。感觉很高效，直到有一天发现不是。',
+        pain1_h: "架构漂移",
+        pain1_p: "AI 生成的代码单独看都能跑。但每个文件遵循不同的模式。没有一致的分层，没有依赖方向。三个月后，代码库变成迷宫。",
+        pain2_h: "上下文窗口浪费",
+        pain2_p: "没有清晰的接口定义，agent 要读 50 个文件才能理解怎么加一个字段。上下文窗口被样板代码填满，还没到达实际任务。",
+        pain3_h: "隐性耦合",
+        pain3_p: "Agent A 写的存储逻辑 import 了 service 类型。Agent B 加的 handler 直接调数据库。没人发现，直到重构成本变成 10 倍。",
+        pain4_h: "重写循环",
+        pain4_p: "Sprint 1：AI 生成了一个能用的功能。Sprint 2：新功能和 Sprint 1 的架构冲突。Sprint 3：AI 建议全部重写。听起来耳熟？",
+        cases_title: 'AI 代码<span class="dim">反面案例</span>',
+        cases_subtitle: "我们在 AI 生成的 Go 项目中反复看到的模式。",
+        case1_h: "上帝 Handler — 一个 HTTP handler 里塞了 300 行业务逻辑",
+        case1_p: "校验、数据库查询、Redis 调用、事件发布 — 全在一个函数里。Agent \"就是让它跑起来了\"，没有任何分层。",
+        case2_h: 'Viper 全局单例 — <code>viper.Get("db.host")</code> 满天飞',
+        case2_p: "配置访问散落各处，测试变得不可能。没有依赖注入，没有组件间的显式契约。",
+        case3_h: "fmt.Println 日志 — 非结构化、不可搜索、不可过滤",
+        case3_p: 'AI 默认用 <code>fmt.Println</code> 或 <code>log.Println</code>。没有 trace_id，没有结构化字段，没有日志级别。生产环境调试变成了猜谜。',
+        case4_h: '没有错误码 — 每个错误都是 <code>fmt.Errorf("something failed")</code>',
+        case4_p: "没有结构化错误码，没有层级归属。API 返回 500 时，你完全不知道是数据库问题、业务规则违反还是网关超时。",
+        case5_h: "缺失事务边界 — 写操作不是原子的",
+        case5_p: "Agent 先创建记录，再发布事件。如果事件发布失败，记录存在但没人知道。没有 Outbox 模式。",
+        case6_h: "复制粘贴的 Mock — 测了个寂寞",
+        case6_p: "Agent 生成的 mock 返回硬编码值。测试全过，但代码在生产环境根本跑不了。集成测试？完全没有。",
+        case7_h: "框架大杂烩 — Gin + Echo + net/http 共存于一个项目",
+        case7_p: "Agent 挑了它在训练数据里见过最多的。项目最终有三个 HTTP 框架、两个 ORM、四个日志库。",
+        case8_h: "没有健康检查 — 部署后听天由命",
+        case8_p: '没有 <code>/healthz</code>、<code>/readyz</code>、pprof、metrics 端点。Kubernetes 无法判断服务是否存活。可观测性是事后补的。',
+        sol_title: 'vibe-go <span class="dim">= 架构即代码</span>',
+        sol_subtitle: "不是又一个框架。是一个内置架构约束的脚手架。AI agent 在结构内工作 — 而不是对抗结构。",
+        arch_l5: "Connect handler、中间件、路由",
+        arch_l3: "权限校验、限流",
+        arch_l4: "业务编排、输入校验",
+        arch_l2: "纯 Go struct、状态机、领域事件",
+        arch_l1: "Ent、PostgreSQL、Redis、Outbox",
+        feat1_h: "5 层强制",
+        feat1_p: '依赖方向锁定。<code>check_architecture.sh</code> 在 CI 时验证。Agent 无法意外违反边界。',
+        feat2_h: "接口倒置",
+        feat2_p: "核心层定义接口，插件层实现。main.go 里做 DI。把 Meilisearch 换成 Elasticsearch — 业务逻辑零改动。",
+        feat3_h: "Agent 就绪的任务",
+        feat3_p: "每个任务 = 一个模块 &times; 一个层。自包含上下文、精确的接口契约、可执行的验收标准。",
+        feat4_h: "结构化错误",
+        feat4_p: '<code>L{层号}{序号}</code> 错误码。每个错误自带层级。<code>L4_601</code> = Service 校验失败。不用猜。',
+        feat5_h: "内置 Outbox",
+        feat5_p: "业务写入和事件发布在同一事务内。不会丢事件，不会有最终一致性的惊喜。",
+        feat6_h: "零决策疲劳",
+        feat6_p: "日志用 slog。配置用 koanf。ORM 用 ent。HTTP 用 net/http。每个选型都定好了。Agent 只专注业务。",
+        stack_title: '技术栈 <span class="dim">— 已决定，不讨论</span>',
+        th_category: "类别", th_choice: "选型", th_why: "为什么",
+        stack_api: "gRPC + HTTP 双模，一个 proto 文件",
+        stack_proto: "代码生成、lint、breaking change 检测",
+        stack_orm: "类型安全、代码生成、图谱关系",
+        stack_config: "YAML + 环境变量，显式 DI，无全局单例",
+        stack_log: "标准库，零依赖，JSON Handler",
+        stack_cache: "缓存 + 事件流 + 分布式锁",
+        stack_id: "全局唯一、按时间排序",
+        stack_trace: "OTLP 导出、概率采样",
+        stack_metrics: ":9090/metrics，Prometheus 格式",
+        stack_migrate: "版本化 SQL，CLI + 库双模式",
+        stack_test: "单元 / 集成 / E2E 全覆盖",
+        stack_docs: "Proto 即契约，不需要 Swagger",
+        lra_title: '为 <span class="dim">LRA</span> 而生',
+        lra_subtitle: 'vibe-go 的任务拆分专为 <a href="https://hotjp.github.io/long-run-agent/" target="_blank" style="color: var(--accent); text-decoration: none;">LRA (Long-Running Agent)</a> 设计 — 一个专为 AI Agent 多轮迭代开发的任务管理工具。',
+        lra1_h: "自包含任务",
+        lra1_p: "每个任务自带上下文：目标、契约、依赖、约定、验收标准。Agent 冷启动也能交付。",
+        lra2_h: "原子认领 + 锁",
+        lra2_p: "多个 agent 可以并行工作。每个任务被原子认领 — 不冲突、不重复。",
+        lra3_h: "质量门控",
+        lra3_p: "基于 Constitution 的检查确保每个任务达标后才算完成。测试通过、lint 干净、架构合法。",
+        lra4_h: "可选但强烈推荐",
+        lra4_p: "LRA 不是必须的。你完全可以用自己的工作流。但任务拆分格式和 agent 工作流是为 LRA 设计的。",
+        lra_docs: "文档",
+        cta_h: "Fork. 填写. 上线.",
+        cta_p: "克隆脚手架，填写 CLAUDE.md，交给 agent。架构已决定。Agent 只写业务代码。",
+        cta_btn: "查看 GitHub"
+    }
+};
+
+function setLang(lang) {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+    });
+    localStorage.setItem('lang', lang);
+}
+
+// Init from localStorage or browser lang
+const saved = localStorage.getItem('lang');
+const browserZh = navigator.language.startsWith('zh');
+setLang(saved || (browserZh ? 'zh' : 'en'));
+</script>
 
 </body>
 </html>
