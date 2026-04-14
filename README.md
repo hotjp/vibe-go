@@ -4,6 +4,11 @@
 
 Go production framework scaffold.
 
+> **Purpose-built for AI agents and vibe coding.**
+> vibe-go is designed from the ground up for the era where autonomous agents write your codebase.
+> It provides the architectural constraints that AI needs but doesn't have —
+> so the code it produces is production-grade, not just "it compiles."
+
 ## What
 
 vibe-go is a compilable, deployable Go backend framework scaffold with 5-layer architecture and plugin inversion. Fork it, fill in your business logic, and ship a production-grade service.

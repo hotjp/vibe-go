@@ -128,6 +128,21 @@
             font-weight: 500;
             margin-bottom: 24px;
         }
+        .hero .purpose {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin: 0 auto 24px;
+            max-width: 580px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+        .hero .purpose strong {
+            color: var(--text);
+        }
         .badges {
             display: flex;
             gap: 12px;
@@ -170,7 +185,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-        @media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr; } }
 
         .pain-card {
             background: var(--surface);
@@ -278,7 +292,6 @@
             gap: 14px;
             margin-top: 32px;
         }
-        @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
 
         .feature-item {
             background: var(--surface);
@@ -325,6 +338,58 @@
         }
         .stack-table tr:last-child td { border-bottom: none; }
 
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+
+            /* Nav: hide text links, keep brand + lang toggle + github */
+            nav .container { height: 48px; }
+            nav .brand { font-size: 15px; }
+            nav .nav-links { gap: 12px; }
+            nav .nav-links a.nav-text { display: none; }
+            nav a { font-size: 13px; margin-left: 0; }
+
+            /* Hero */
+            .hero { padding: 64px 0 48px; }
+            .hero h1 { font-size: 36px; letter-spacing: -1px; }
+            .hero p { font-size: 15px; }
+            .hero .tag { font-size: 12px; }
+            .hero .purpose { padding: 12px 16px; font-size: 13px; }
+
+            /* Sections */
+            section { padding: 48px 0; }
+            section h2 { font-size: 24px; }
+            section .subtitle { font-size: 14px; margin-bottom: 32px; }
+
+            /* Grids */
+            .pain-grid { grid-template-columns: 1fr; gap: 12px; }
+            .feature-grid { grid-template-columns: 1fr; gap: 12px; }
+
+            /* Cards */
+            .pain-card { padding: 18px; }
+            .pain-card h3 { font-size: 14px; }
+            .pain-card p { font-size: 13px; }
+            .case-item { padding: 14px 16px; gap: 10px; }
+
+            /* Architecture diagram */
+            .arch-diagram { padding: 20px 16px; }
+            .arch-diagram pre { font-size: 12px; line-height: 1.6; }
+
+            /* Tech stack table scroll */
+            .stack-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .stack-table th, .stack-table td { padding: 8px 12px; font-size: 13px; white-space: nowrap; }
+
+            /* CTA */
+            .cta { padding: 48px 0; }
+            .cta h2 { font-size: 22px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 28px; }
+            .badges span { font-size: 11px; padding: 4px 10px; }
+            .lang-toggle button { padding: 3px 8px; font-size: 12px; }
+        }
+
         /* --- CTA --- */
         .cta {
             text-align: center;
@@ -370,9 +435,9 @@
     <div class="container">
         <div class="brand">vibe-go <span>/ production framework</span></div>
         <div class="nav-links">
-            <a href="#pain" data-i18n="nav_pain">Pain Points</a>
-            <a href="#cases" data-i18n="nav_cases">Bad Cases</a>
-            <a href="#solution" data-i18n="nav_solution">Solution</a>
+            <a href="#pain" class="nav-text" data-i18n="nav_pain">Pain Points</a>
+            <a href="#cases" class="nav-text" data-i18n="nav_cases">Bad Cases</a>
+            <a href="#solution" class="nav-text" data-i18n="nav_solution">Solution</a>
             <a href="https://hotjp.github.io/long-run-agent/" target="_blank">LRA</a>
             <a href="https://github.com/hotjp/vibe-go" target="_blank">GitHub</a>
             <div class="lang-toggle">
@@ -395,6 +460,11 @@
         they produce unmaintainable spaghetti. vibe-go provides the structure
         so AI produces production-grade Go from day one.
     </p>
+    <div class="purpose" data-i18n="hero_purpose">
+        <strong>Purpose-built for AI agents and vibe coding.</strong>
+        vibe-go provides the architectural constraints that AI needs but doesn't have —
+        so the code it produces is production-grade, not just "it compiles."
+    </div>
     <div class="badges">
         <span>connect-go</span>
         <span>ent + pgx</span>
@@ -653,6 +723,7 @@ const i18n = {
         hero_line1: "Vibe 很爽。",
         hero_line2: "直到上线那天。",
         hero_desc: "AI agents write code fast, but without architectural constraints, they produce unmaintainable spaghetti. vibe-go provides the structure so AI produces production-grade Go from day one.",
+        hero_purpose: '<strong>Purpose-built for AI agents and vibe coding.</strong> vibe-go provides the architectural constraints that AI needs but doesn\'t have — so the code it produces is production-grade, not just "it compiles."',
         pain_title: 'The Vibe Coding Problem <span class="dim">is real</span>',
         pain_subtitle: '"Vibe coding" — letting AI write code by intuition without engineering rigor. It feels productive until it isn\'t.',
         pain1_h: "Architecture Drift",
@@ -737,6 +808,7 @@ const i18n = {
         hero_line1: "别再 vibe 了。",
         hero_line2: "开始构建。",
         hero_desc: "AI agent 写代码很快，但 vibe coding 的快感在部署那一刻变成噩梦。vibe-go 用架构约束让 AI 产出生产级 Go 代码。",
+        hero_purpose: '<strong>专为 AI Agent 和 Vibe Coding 设计。</strong> vibe-go 提供 AI 需要却不具备的东西 — 架构约束，让 AI 产出的代码是生产级品质，而不只是"能编译通过"。',
         pain_title: 'Vibe Coding 的问题<span class="dim">是真实存在的</span>',
         pain_subtitle: '"Vibe coding" — 让 AI 凭直觉写代码，不管工程规范。感觉很高效，直到有一天发现不是。',
         pain1_h: "架构漂移",
