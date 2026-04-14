@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vibe-go — AI-Ready Go Production Framework</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --surface2: #1e1e1e;
+            --border: #2a2a2a;
+            --text: #e4e4e4;
+            --text-dim: #888;
+            --accent: #00d4aa;
+            --accent-dim: rgba(0, 212, 170, 0.1);
+            --red: #ff4757;
+            --red-dim: rgba(255, 71, 87, 0.08);
+            --amber: #ffa502;
+            --amber-dim: rgba(255, 165, 2, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Nav --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        nav .brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
+        nav .brand span { color: var(--text-dim); font-weight: 400; }
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--text); }
+
+        /* --- Hero --- */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero h1 .line2 {
+            color: var(--accent);
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .hero .tag {
+            display: inline-block;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badges span {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--text-dim);
+        }
+
+        /* --- Section --- */
+        section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+        section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        section h2 .dim { color: var(--text-dim); font-weight: 400; }
+        section .subtitle {
+            color: var(--text-dim);
+            font-size: 16px;
+            margin-bottom: 48px;
+            max-width: 560px;
+        }
+
+        /* --- Pain Points --- */
+        .pain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr; } }
+
+        .pain-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+        .pain-card:hover { border-color: #444; }
+        .pain-card .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+        .pain-card .icon.red { background: var(--red-dim); color: var(--red); }
+        .pain-card .icon.amber { background: var(--amber-dim); color: var(--amber); }
+        .pain-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .pain-card p {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* --- Bad Cases --- */
+        .case-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .case-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .case-item .marker {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: var(--red-dim);
+            color: var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: monospace;
+            margin-top: 1px;
+        }
+        .case-item .text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .case-item .text p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .case-item .text code {
+            background: var(--surface2);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--amber);
+        }
+
+        /* --- Solution --- */
+        .arch-diagram {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        .arch-diagram pre {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+            text-align: left;
+            display: inline-block;
+        }
+        .arch-diagram pre .layer { color: var(--accent); font-weight: 600; }
+        .arch-diagram pre .arrow { color: var(--text-dim); }
+        .arch-diagram pre .comment { color: #555; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+            margin-top: 32px;
+        }
+        @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
+
+        .feature-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .feature-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+        .feature-item p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* --- Tech Stack --- */
+        .stack-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        .stack-table th {
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stack-table td {
+            padding: 10px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stack-table td:first-child {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .stack-table tr:last-child td { border-bottom: none; }
+
+        /* --- CTA --- */
+        .cta {
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+        .cta h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .cta p {
+            color: var(--text-dim);
+            margin-bottom: 28px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 12px 32px;
+            border-radius: 8px;
+            transition: opacity 0.2s;
+        }
+        .cta-button:hover { opacity: 0.85; }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <div class="container">
+        <div class="brand">vibe-go <span>/ production framework</span></div>
+        <div>
+            <a href="#pain">Pain Points</a>
+            <a href="#cases">Bad Cases</a>
+            <a href="#solution">Solution</a>
+            <a href="https://github.com/hotjp/vibe-go" target="_blank">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero container">
+    <div class="tag">Architecture-First AI Development</div>
+    <h1>
+        Stop vibing.<br>
+        <span class="line2">Start building.</span>
+    </h1>
+    <p>
+        AI agents write code fast, but without architectural constraints,
+        they produce unmaintainable spaghetti. vibe-go provides the structure
+        so AI produces production-grade Go from day one.
+    </p>
+    <div class="badges">
+        <span>connect-go</span>
+        <span>ent + pgx</span>
+        <span>koanf</span>
+        <span>slog</span>
+        <span>opentelemetry</span>
+        <span>buf</span>
+    </div>
+</div>
+
+<!-- Pain Points -->
+<section id="pain">
+    <div class="container">
+        <h2>The Vibe Coding Problem <span class="dim">is real</span></h2>
+        <p class="subtitle">
+            "Vibe coding" — letting AI write code by intuition without engineering rigor.
+            It feels productive until it isn't.
+        </p>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="icon red">&#x271A;</div>
+                <h3>Architecture Drift</h3>
+                <p>AI generates code that works in isolation. Each file follows a different pattern. No consistent layering, no dependency direction. Three months in, the codebase is a maze.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon amber">&#x26A0;</div>
+                <h3>Context Window Waste</h3>
+                <p>Without clear interfaces, the agent reads 50 files to understand how to add one field. The context window fills with boilerplate before reaching the actual task.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon red">&#x2716;</div>
+                <h3>Implicit Coupling</h3>
+                <p>Agent A writes storage logic that imports service types. Agent B adds a handler that calls the DB directly. Nobody notices until the refactor costs 10x.</p>
+            </div>
+            <div class="pain-card">
+                <div class="icon amber">&#x21BB;</div>
+                <h3>Rewrite Loops</h3>
+                <p>Sprint 1: AI generates a working feature. Sprint 2: new feature conflicts with Sprint 1's architecture. Sprint 3: AI suggests rewriting everything. Sound familiar?</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bad Cases -->
+<section id="cases">
+    <div class="container">
+        <h2>AI Code <span class="dim">Bad Cases</span></h2>
+        <p class="subtitle">
+            Patterns we've seen repeated across AI-generated Go projects.
+        </p>
+        <div class="case-list">
+            <div class="case-item">
+                <div class="marker">01</div>
+                <div class="text">
+                    <h4>God Handler — 300 lines of business logic in an HTTP handler</h4>
+                    <p>Validation, DB queries, Redis calls, event publishing — all in one function. The agent "just made it work" without layering.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">02</div>
+                <div class="text">
+                    <h4>Viper Global Singleton — <code>viper.Get("db.host")</code> everywhere</h4>
+                    <p>Scattered config access makes testing impossible. No dependency injection, no explicit contracts between components.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">03</div>
+                <div class="text">
+                    <h4>fmt.Println Logging — unstructured, unsearchable, unfilterable</h4>
+                    <p>AI defaults to <code>fmt.Println</code> or <code>log.Println</code>. No trace_id, no structured fields, no level control. Production debugging becomes guesswork.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">04</div>
+                <div class="text">
+                    <h4>No Error Codes — every error is <code>fmt.Errorf("something failed")</code></h4>
+                    <p>No structured error codes, no layer attribution. When an API returns 500, you have no idea if it's a DB issue, a business rule violation, or a gateway timeout.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">05</div>
+                <div class="text">
+                    <h4>Missing Transaction Boundaries — writes that aren't atomic</h4>
+                    <p>Agent creates a record, then publishes an event. If the event publish fails, the record exists but nobody knows about it. No Outbox pattern.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">06</div>
+                <div class="text">
+                    <h4>Copy-Paste Mocks — tests that test nothing</h4>
+                    <p>Agent generates mocks that return hardcoded values. Tests pass, but the code doesn't actually work in production. No integration tests at all.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">07</div>
+                <div class="text">
+                    <h4>Framework Salad — Gin + Echo + net/http in the same project</h4>
+                    <p>Agent picks whatever it's seen most in training data. The project ends up with three HTTP frameworks, two ORMs, and four logging libraries.</p>
+                </div>
+            </div>
+            <div class="case-item">
+                <div class="marker">08</div>
+                <div class="text">
+                    <h4>No Health Checks — deploy and pray</h4>
+                    <p>No <code>/healthz</code>, no <code>/readyz</code>, no pprof, no metrics endpoint. Kubernetes can't tell if the service is alive. Observability is an afterthought.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Solution -->
+<section id="solution">
+    <div class="container">
+        <h2>vibe-go <span class="dim">= Architecture as Code</span></h2>
+        <p class="subtitle">
+            Not another framework. A scaffold with architectural constraints baked in.
+            AI agents work within the structure — not against it.
+        </p>
+
+        <div class="arch-diagram">
+            <pre><span class="layer">L5-Gateway</span>   <span class="arrow">──&gt;</span>  Connect handler, middleware, routing
+    <span class="arrow">│</span>
+<span class="layer">L3-Authz</span>     <span class="arrow">──&gt;</span>  Permission check, rate limiting
+    <span class="arrow">│</span>
+<span class="layer">L4-Service</span>   <span class="arrow">──&gt;</span>  Business orchestration, validation, <span class="comment">interfaces.go</span>
+    <span class="arrow">│</span>
+<span class="layer">L2-Domain</span>    <span class="arrow">──&gt;</span>  Pure Go structs, state machine, events  <span class="comment">// zero deps</span>
+    <span class="arrow">│</span>
+<span class="layer">L1-Storage</span>   <span class="arrow">──&gt;</span>  Ent, PostgreSQL, Redis, Outbox</pre>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4>5-Layer Enforced</h4>
+                <p>Dependency direction locked. <code>check_architecture.sh</code> validates at CI time. Agent can't accidentally violate boundaries.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Interface Inversion</h4>
+                <p>Core defines interfaces, plugins implement them. DI in main.go. Swap Meilisearch for Elasticsearch — zero changes to business logic.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Agent-Ready Tasks</h4>
+                <p>Each task = one module &times; one layer. Self-contained context, precise interface contracts, executable acceptance criteria.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Structured Errors</h4>
+                <p><code>L{layer}{seq}</code> error codes. Every error carries its layer. <code>L4_601</code> = service validation failed. No guessing.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Outbox Built-in</h4>
+                <p>Business writes and event publishing in one transaction. No lost events, no eventual consistency surprises.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Zero Decision Fatigue</h4>
+                <p>Logging: slog. Config: koanf. ORM: ent. HTTP: net/http. Every choice is made. Agent focuses on business, not bike-shedding.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack -->
+<section>
+    <div class="container">
+        <h2>Tech Stack <span class="dim">— decided, not debated</span></h2>
+        <table class="stack-table">
+            <thead>
+                <tr><th>Category</th><th>Choice</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>API</td><td>connect-go</td><td>gRPC + HTTP dual-mode, one proto file</td></tr>
+                <tr><td>Protobuf</td><td>buf</td><td>Code gen, lint, breaking change detection</td></tr>
+                <tr><td>ORM</td><td>ent (pgx)</td><td>Type-safe, code-gen, graph relations</td></tr>
+                <tr><td>Config</td><td>koanf</td><td>YAML + env, explicit DI, no global singleton</td></tr>
+                <tr><td>Logging</td><td>log/slog</td><td>Stdlib, zero deps, JSON handler</td></tr>
+                <tr><td>Cache</td><td>go-redis/v9</td><td>Cache + event stream + distributed lock</td></tr>
+                <tr><td>ID</td><td>oklog/ulid</td><td>Globally unique, time-sortable</td></tr>
+                <tr><td>Tracing</td><td>OpenTelemetry</td><td>OTLP export, probability sampling</td></tr>
+                <tr><td>Metrics</td><td>Otel + Prometheus</td><td>:9090/metrics, standard format</td></tr>
+                <tr><td>Migration</td><td>golang-migrate</td><td>Versioned SQL, CLI + library</td></tr>
+                <tr><td>Testing</td><td>testify + gomock + testcontainers</td><td>Unit / integration / E2E coverage</td></tr>
+                <tr><td>Docs</td><td>buf + connectrpc/reflection</td><td>Proto is the contract, no Swagger needed</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+    <div class="container">
+        <h2>Fork. Fill. Ship.</h2>
+        <p>
+            Clone the scaffold, fill in your CLAUDE.md, hand it to an agent.
+            Architecture is pre-decided. The agent just writes business code.
+        </p>
+        <a class="cta-button" href="https://github.com/hotjp/vibe-go">View on GitHub</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        vibe-go &mdash; MIT License &mdash; Architecture-First AI Development
+    </div>
+</footer>
+
+</body>
+</html>
