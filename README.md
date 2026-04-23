@@ -138,6 +138,38 @@ Phase 7:  All -> T90 -> T91 -> T92 -> T93         (Gateway + Authz + Assembly)
 
 The `docs/DESIGN.md` and `docs/TASK-BREAKDOWN.md` contain a complete tag management system (Tag Sense) as a demo business to validate the framework. They are marked with `[Demo]` and do not belong to the framework itself.
 
+## API Docs: buf + proto → TypeScript
+
+**Skip Swagger.** All APIs are defined in `.proto` and generated to TypeScript clients via `buf`. Frontend imports directly.
+
+```
+.proto → buf generate → @bufbuild/connect-web (TS client)
+                                   ↓
+                             Browser import
+```
+
+**Why not OpenAPI/Swagger:**
+- Proto → TS type generation, zero drift between frontend and backend
+- Agent gets TS client code directly — no need to parse HTTP semantics
+- Compile-time type checking, not runtime documentation
+
+**Core commands:**
+```bash
+# Install tools
+brew install buf protobuf
+
+# Generate TS client
+buf generate
+
+# Frontend deps
+npm install @bufbuild/connect-web @bufbuild/protobuf
+```
+
+**Key files:**
+- `api/{package}/v1/*.proto` — API definitions
+- `buf.yaml` — Generation config
+- `api/{package}/v1/generated/ts/` — Generated TS client
+
 ## License
 
 MIT

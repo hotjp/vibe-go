@@ -7,6 +7,7 @@
 |---|---|---|
 | API 协议 | `connect-go` | Connect (gRPC + HTTP 双模) |
 | Protobuf | `buf` + `protoc-gen-go` | API 定义与代码生成 |
+| API 文档 | `buf` → TS Client | 不 Swagger，用 buf 生成 TS 客户端给前端/Agent |
 | ORM | `ent` | 数据库模型、迁移、查询（底层 pgx） |
 | ID 生成 | `oklog/ulid` | 全局唯一、按时间排序的 ID |
 
