@@ -33,7 +33,7 @@
 | 类别 | 选型 | 说明 |
 |---|---|---|
 | 配置管理 | `koanf` | 显式依赖注入（非全局单例），YAML + env + 命令行 |
-| 数据库迁移 | `golang-migrate` | 版本化 SQL 迁移，CLI + 库双模式 |
+| 数据库迁移 | `ent migrate` | Ent ORM 内置迁移，schema 即迁移源 |
 | HTTP | `net/http` (标准库) | connect-go 底层，无需额外框架 |
 
 ### 测试
@@ -450,13 +450,8 @@ func (c *Client) GetCached(ctx context.Context, key string, dest any, ttl time.D
 ```
 
 ### 数据库迁移
-```bash
-# 创建迁移文件
-migrate create -ext sql -dir storage/migrations -seq create_initial_tables
+ent migrate
 
-# 执行迁移
-migrate -path storage/migrations -database "$DATABASE_URL" up
-```
 
 ---
 
